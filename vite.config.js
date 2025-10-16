@@ -9,7 +9,9 @@ export default defineConfig({
     globals: true,      // enables globally available expect, describe, test, etc.
 
     coverage: {
-      reporter: ["text", "html"],
+      provider: "istanbul",
+      reporter: ["text", "html", "lcov"],
+      reportsDirectory: "./coverage"
     }
   }
 })
