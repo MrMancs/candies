@@ -33,5 +33,5 @@ module.exports = app
 
 // Only start server if this is the main module (not when testing)
 if (require.main === module) {
-  app.listen(3000, () => console.log('backend runs'))
+  app.listen(3000, () => console.log('Szerver mükszik itt: 3000'))
 }

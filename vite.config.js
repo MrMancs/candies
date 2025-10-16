@@ -7,5 +7,9 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,      // enables globally available expect, describe, test, etc.
+
+    coverage: {
+      reporter: ["text", "html"],
+    }
   }
 })
