@@ -1,6 +1,6 @@
 /* frontend.test.jsx */
 import { describe, test, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { getAllByRole, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom' // adds custom matchers like toBeInTheDocument
 import userEvent from '@testing-library/user-event'
 import Candy from '../Candy'
@@ -25,9 +25,11 @@ describe('Candy', () => {
 
 describe('App', () => {
   test('renders App heading', () => {
-    // TODO - render App
+    // render App
     render( <App/> )
     // TODO - test heading
+    //expect(screen.getAllByText(/Candies/i)).toBeInTheDocument()
+    expect(screen.getByRole("heading", {name: /Candies/i})).toBeInTheDocument()
 
   })
 
