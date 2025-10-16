@@ -1,6 +1,6 @@
 /* frontend.test.jsx */
 import { describe, test, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { getAllByRole, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom' // adds custom matchers like toBeInTheDocument
 import userEvent from '@testing-library/user-event'
 import Candy from '../Candy'
@@ -14,28 +14,54 @@ describe('local dummy test', () => {
 
 describe('Candy', () => {
   test('renders candy details', () => {
-    const candy = <Candy name="TestCandy" mass="100g" origin="HU" />
-    // TODO - render candy
+    const candy = <Candy key={"TestCandy"} name="TestCandy" mass="100g" origin="HU" />
+    // render candy
     render(candy)
-    // TODO - assert name, mass, origin
+    // assert name, mass, origin
+    expect(screen.getByText(/TestCandy/i)).toBeInTheDocument()
 
   })
 })
 
 describe('App', () => {
   test('renders App heading', () => {
-    // TODO - render App
+    // render App
     render( <App/> )
     // TODO - test heading
+    //expect(screen.getAllByText(/Candies/i)).toBeInTheDocument()
+    expect(screen.getByRole("heading", {name: /Candies/i})).toBeInTheDocument()
 
   })
 
   test('allows user to add a new candy', async () => {
-    // TODO - render App
+    // render App
+    render( <App /> )
 
-    // TODO - test typing into input fields: New Candy, 150g, US
+    // test typing into input fields: New Candy, 150g, US
+    await userEvent.type(screen.getByPlaceholderText(/Candy name/i), "Test Candy")
 
-    // TODO - assert Add Candy button click
+    // assert Add Candy button click
+    await userEvent.click(screen.getByRole("button", {name: /Add Candy/i}))
+  })
 
-  })  
+  test('allows user to add a new candy 2', async () => {
+    // render App
+    render( <App /> )
+
+    // test typing into input fields: New Candy, 150g, US
+    await userEvent.type(screen.getByPlaceholderText(/Candy name/i), "Test Candy")
+    await userEvent.type(screen.getByPlaceholderText(/e.g. 100g/i), "271000g")
+    await userEvent.type(screen.getByPlaceholderText(/Country code/i), "ES")
+
+    // assert Add Candy button click
+    await userEvent.click(screen.getByRole("button", {name: /Add Candy/i}))
+  })
+  
+  test('allows user to delete candies', async () => {
+    // render App
+    render( <App /> )
+
+    // assert Add Candy button click
+    await userEvent.click(screen.getByRole("button", {name: /Delete All Candies/i}))
+  })
 })
