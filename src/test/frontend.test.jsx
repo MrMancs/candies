@@ -42,5 +42,18 @@ describe('App', () => {
 
     // assert Add Candy button click
     await userEvent.click(screen.getByRole("button", {name: /Add Candy/i}))
-  })  
+  })
+
+  test('allows user to add a new candy', async () => {
+    // render App
+    render( <App /> )
+
+    // test typing into input fields: New Candy, 150g, US
+    await userEvent.type(screen.getByPlaceholderText(/Candy name/i), "Test Candy")
+    await userEvent.type(screen.getByPlaceholderText(/e.g. 100g/i), "271000g")
+    await userEvent.type(screen.getByPlaceholderText(/Country code/i), "ES")
+
+    // assert Add Candy button click
+    await userEvent.click(screen.getByRole("button", {name: /Add Candy/i}))
+  })
 })
